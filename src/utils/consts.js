@@ -1,0 +1,12 @@
+export const ADMIN_ROUTE = '/admin'
+export const LOGIN_ROUTE = '/login'
+export const REGISTRATION_ROUTE = '/registration'
+export const SHOP_ROUTE = '/'
+export const CART_ROUTE = '/cart'
+export const DEVICE_ROUTE = '/device'
+
+export const SET_SELECTED_TYPE = 'SET_SELECTED_TYPE'
+export const SET_SELECTED_BRAND = 'SET_SELECTED_BRAND'
+export const SET_PRODUCTS = 'SET_PRODUCTS'
+export const USER_LOGOUT = 'USER_LOGOUT'
+export const USER_LOGIN = 'USER_LOGIN'
