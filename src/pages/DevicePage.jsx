@@ -26,7 +26,12 @@ const DevicePage = () => {
     <div className='page__product product-page'>
       <div className='product-page__container'>
         <div className='product-page__img'>
-          <img src={process.env.REACT_APP_API_URL + product.img} width={'100%'} alt={product.name} />
+          <img
+            maxWidth={'100%'}
+            height={'100%'}
+            alt={product.name}
+            src={process.env.REACT_APP_API_URL + product.img}
+          />
         </div>
 
         <div className='product-page__description'>
@@ -34,13 +39,22 @@ const DevicePage = () => {
           <span className='product-page__price'>Цена: {product.price} Br</span>
           <div className='product-page__price'>Рейтинг: {product.rating} Br</div>
 
-          <h3 style={{ marginTop: 20, marginBottom: 20, fontWeight: 700 }} className='product-page__spec'>Характеристики:</h3>
+          <h3
+            style={{
+              marginTop: 20,
+              marginBottom: 20,
+              fontWeight: 700
+            }}
+            className='product-page__spec'
+          >
+            Характеристики:
+          </h3>
           <ul>
-            {description.map(({ id, title, description }) => {
-              return (
+            {
+              description.map(({ id, title, description }) => (
                 <li key={id}>{title}: {description}</li>
-              )
-            })}
+              ))
+            }
           </ul>
         </div>
       </div>

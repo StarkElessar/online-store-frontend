@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom'
 
 import AppRouter from './components/AppRouter'
+import HomePreloader from './components/preloaders/HomePreloader'
 import { check } from './http/userAPI'
 import { userLogin } from './redux/actions/userAuth'
 
@@ -19,13 +20,9 @@ function App() {
       .finally(() => setLoading(false))
   }, [dispatch])
 
-  if (loading) {
-    return <h1>Загрузка ...</h1>
-  }
-
   return (
     <BrowserRouter>
-      <AppRouter />
+      {loading ? <HomePreloader/> : <AppRouter />}
     </BrowserRouter>
   )
 }

@@ -1,29 +1,41 @@
-import React, { memo } from 'react'
+import React, { memo, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { setSelectedBrand } from '../redux/actions/filters'
+import { actionFetchBrands, setSelectedBrand } from '../redux/actions/filters'
+import BrandSkeleton from './skeletons/BrandSkeleton'
 
 const Brands = () => {
   const dispath = useDispatch()
-  const { allBrands, selectedBrand } = useSelector(({ filters }) => ({
+  useEffect(() => dispath(actionFetchBrands()), [dispath])
+
+  const { allBrands, selectedBrand, loading } = useSelector(({ filters }) => ({
     allBrands: filters.allBrands,
-    selectedBrand: filters.selectedBrand.name
+    selectedBrand: filters.selectedBrand.name,
+    loading: filters.brandsIsLoaded
   }))
   const brandsArray = [{ id: 0, name: 'Все' }, ...allBrands]
 
+  // if (!loading) {
+  //   return <BrandSkeleton/>
+  // }
+
   return (
     <ul className='shop__brands'>
-      {brandsArray.map(({ id, name }) => {
-        const onSelectBrand = () => dispath(setSelectedBrand(id, name))
+      {(loading ? brandsArray : [...Array(1)]).map((obj, index) => {
+        const onSelectBrand = () => dispath(setSelectedBrand(obj.id, obj.name))
 
         return (
-          <li
-            key={id}
-            onClick={onSelectBrand}
-            className={name === selectedBrand ? 'active' : ''}
-          >
-            {name}
-          </li>
+          loading
+            ?
+            <li
+              key={obj.id}
+              onClick={onSelectBrand}
+              className={obj.name === selectedBrand ? 'active' : ''}
+            >
+              {obj.name}
+            </li>
+            : <BrandSkeleton key={index} />
+
         )
       })}
     </ul>

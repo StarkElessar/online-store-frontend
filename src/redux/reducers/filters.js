@@ -4,7 +4,9 @@ const initialState = {
   selectedType: { id: 0, name: 'Все'},
   selectedBrand: { id: 0, name: 'Все'},
   allTypes: [],
-  allBrands: []
+  allBrands: [],
+  typesIsLoaded: false,
+  brandsIsLoaded: false
 }
 
 const filtersReducer = (state = initialState, action) => {
@@ -12,12 +14,14 @@ const filtersReducer = (state = initialState, action) => {
     case SET_TYPES:
       return {
         ...state,
-        allTypes: action.payload
+        allTypes: action.payload,
+        typesIsLoaded: true
       }
     case SET_BRANDS:
       return {
         ...state,
-        allBrands: action.payload
+        allBrands: action.payload,
+        brandsIsLoaded: true
       }
     case SET_SELECTED_TYPE:
       return {

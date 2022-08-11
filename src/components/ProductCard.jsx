@@ -5,9 +5,7 @@ import { DEVICE_ROUTE } from '../utils/consts'
 
 const ProductCard = ({ imgUrl, id, brand, title, rating, price }) => {
   const navigate = useNavigate()
-  const handleClick = () => {
-    navigate(`${DEVICE_ROUTE}/${id}`)
-  }
+  const handleClick = () => navigate(`${DEVICE_ROUTE}/${id}`)
   const imgPath = `${process.env.REACT_APP_API_URL}${imgUrl}`
 
   return (

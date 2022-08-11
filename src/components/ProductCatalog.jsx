@@ -1,39 +1,55 @@
-import React, { memo } from 'react'
-import { useSelector } from 'react-redux'
+import React, { memo, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { actionFetchProducts } from '../redux/actions/products'
 
 import ProductCard from './ProductCard'
 import ProductSkeleton from './skeletons/PoductSkeleton'
 
 const ProductCatalog = () => {
-  console.log('ProductCatalog Загрузился..')
-  const { items, loading } = useSelector(({ products }) => {
-    return {
-      items: products.items.rows,
-      loading: products.isLoaded
-    }
-  })
+  const dispath = useDispatch()
+  const { items, count, loading, selectedType, selectedBrand } = useSelector(({ products, filters }) => ({
+    items: products.items.rows,
+    count: products.items.count,
+    loading: products.isLoaded,
+    selectedType: filters.selectedType,
+    selectedBrand: filters.selectedBrand
+  }))
 
-  console.log(loading)
+  useEffect(() => {
+    dispath(actionFetchProducts(selectedBrand, selectedType))
+  }, [dispath, selectedBrand, selectedType])
 
   return (
-    <main className='shop__content'>
-      {(loading ? items : [...Array(8)]).map(({ id, img, name, rating, price }) => {
-        // const brand = allBrands.filter((obj) => obj.id === brandId)
+    <main className='shop__content' style={{ position: 'relative' }}>
+      {count === 0 &&
+        (<h1
+          style={{
+            position: 'absolute',
+            top: '20%',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            fontSize: 36
+          }}
+        >
+          Нет таких товаров....
+        </h1>)}
+
+      {(!loading ? [...Array(8)] : items).map((productObj, index) => {
 
         return (
-          loading
+          !loading
             ?
-            <ProductCard
-              key={id}
-              id={id}
-              imgUrl={img}
-              brand={'brand[0].name'}
-              title={name}
-              rating={rating}
-              price={price}
-            />
+            <ProductSkeleton key={index} />
             :
-            <ProductSkeleton />
+            <ProductCard
+              key={productObj.id}
+              id={productObj.id}
+              imgUrl={productObj.img}
+              brand={'brand'}
+              title={productObj.name}
+              rating={productObj.rating}
+              price={productObj.price}
+            />
         )
       })}
     </main>
