@@ -1,4 +1,5 @@
 body {
+  overflow-y: scroll;
   &.lock {
     overflow: hidden;
   }
@@ -21,6 +22,10 @@ body {
   @media (max-width: 425.98px) {
     padding: 0 ($mainOffset - 10);
   }
+}
+[class*="page__"] {
+  flex: 1 1 auto;
+  padding-bottom: 40px;
 }
 .row {display: flex;}
 .title {

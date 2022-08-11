@@ -1,17 +1,23 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
+
 import { ADMIN_ROUTE, LOGIN_ROUTE, SHOP_ROUTE } from '../utils/consts'
-import { userLogin } from '../redux/actions/userAuth'
+import { userLogout } from '../redux/actions/userAuth'
 
 const Header = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const { isAuth } = useSelector(({ userAuth }) => userAuth)
-  
+
+  const userLoginHandler = () => navigate(LOGIN_ROUTE)
   const handleClickAdminPanel = () => navigate(ADMIN_ROUTE)
-  const handleClickLogout = () => navigate(LOGIN_ROUTE)
-  const userLoginHandler = () => dispatch(userLogin())
+
+  const handleClickLogout = useCallback(() => {
+    dispatch(userLogout())
+    navigate(LOGIN_ROUTE)
+    localStorage.removeItem('token')
+  }, [dispatch, navigate])
 
   return (
     <header className='header'>

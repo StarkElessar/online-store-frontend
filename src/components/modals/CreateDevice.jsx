@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo, useCallback } from 'react'
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
 
@@ -14,12 +14,14 @@ const CreateDevice = ({ onHide }) => {
     e.preventDefault()
     setInfo(info.filter((i) => i.number !== number))
   }
+  const closeModal = useCallback(() => onHide(false), [onHide])
+  const stopCloseModal = useCallback((event) => event.stopPropagation(), [])
 
   return (
-    <div className='create__modal'>
-      <h2>Добавить новое товар:</h2>
-      <form>
-        <h3>Выберите тип нового товара:</h3>
+    <div className='create-modal' onClick={closeModal}>
+      <h2 className='create-modal__title'>Добавить новое товар:</h2>
+      <form onClick={stopCloseModal} className='create-modal__form form-create'>
+        <h3 className='form-create__title'>Выберите тип нового товара:</h3>
         <select name="type" id="">
           {allTypes.map((type) => (
             <option key={type.id} value={type.name}>
@@ -27,7 +29,7 @@ const CreateDevice = ({ onHide }) => {
             </option>
           ))}
         </select>
-        <h3>Выберите бренд нового товара:</h3>
+        <h3 className='form-create__title'>Выберите бренд нового товара:</h3>
         <select name="brand" id="">
           {allBrands.map((brand) => (
             <option key={brand.id} value={brand.name}>
@@ -35,11 +37,12 @@ const CreateDevice = ({ onHide }) => {
             </option>
           ))}
         </select>
-        <input type="text" placeholder='Введите название товара' />
-        <input type="number" placeholder='Введите стоимость' />
-        <input type="file" />
+        <input className='form-create__input' type="text" placeholder='Введите название товара' />
+        <input className='form-create__input' type="number" placeholder='Введите стоимость' />
+        <input className='form-create__input' type="file" />
         <hr />
         <button
+          className='create-modal__btn create-btn'
           onClick={addInfo}
         >
           Добавить свойство товара:
@@ -48,22 +51,27 @@ const CreateDevice = ({ onHide }) => {
           const onRemoveIndo = (e) => removeInfo(e, number)
 
           return (
-            <div key={number} className='row'>
-              <input type="text" placeholder='Введите название свойства' />
-              <input type="text" placeholder='Введите описание свойства' />
-              <button onClick={onRemoveIndo}>Удалить</button>
+            <div key={number} className='form-create__row row'>
+              <input className='form-create__input spec-input' type="text" placeholder='Введите название свойства' />
+              <input className='form-create__input spec-input' type="text" placeholder='Введите описание свойства' />
+              <button
+                className='create-modal__btn delete-btn'
+                onClick={onRemoveIndo}
+              >
+                Удалить
+              </button>
             </div>
           )
         })}
-        <div className='row'>
+        <div className='create-modal__row row'>
           <button
-            className='modal__btn close-btn'
-            onClick={() => onHide(false)}
+            className='create-modal__btn close-btn'
+            onClick={closeModal}
           >
             Закрыть окно
           </button>
           <button
-            className='modal__btn add-btn'
+            className='create-modal__btn add-btn'
           >
             Добавить
           </button>
@@ -73,4 +81,4 @@ const CreateDevice = ({ onHide }) => {
   )
 }
 
-export default CreateDevice
+export default memo(CreateDevice)

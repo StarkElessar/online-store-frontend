@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { memo, useState } from 'react'
 import CreateDevice from '../components/modals/CreateDevice'
 import CreateType from '../components/modals/CreateType'
 import CreateBrand from '../components/modals/CreateBrand'
@@ -38,4 +38,4 @@ const Admin = () => {
   )
 }
 
-export default Admin
+export default memo(Admin)

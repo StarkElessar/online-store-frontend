@@ -5,6 +5,7 @@ import { Routes, Route } from 'react-router-dom'
 import { authRoutes, publicRoutes } from '../routes'
 import Shop from '../pages/Shop'
 import Header from './Header'
+import Footer from './Footer'
 
 const AppRouter = () => {
   const { isAuth } = useSelector(({ userAuth }) => userAuth)
@@ -21,6 +22,7 @@ const AppRouter = () => {
         })}
         <Route path='*' element={<Shop />} />
       </Routes>
+      <Footer/>
     </div>
 
   )

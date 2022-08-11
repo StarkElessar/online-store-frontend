@@ -1,0 +1,112 @@
+.create-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 40px 0;
+  background: rgba(#000, 80%);
+  backdrop-filter: blur(2px);
+  overflow-y: scroll;
+
+  &__title {
+    font-weight: 700;
+    margin-bottom: 20px;
+    font-size: 36px;
+    color: #fff;
+  }
+  &__form {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    border-radius: 10px;
+    background: #fff;
+    & h3,
+    & select,
+    & input {
+      margin-bottom: 10px;
+    }
+    & select {
+      padding: 10px;
+    }
+  }
+  &__row {
+    margin-top: 20px;
+    justify-content: space-between;
+  }
+  &__btn {
+    width: 140px;
+    padding: 10px 0;
+    font-size: 18px;
+    color: $blueColor;
+    border: 2px solid $blueColor;
+    border-radius: 20px;
+    background: transparent;
+    transition: $standartTrans;
+    &:hover {
+      background: $blueColor;
+      color: $whiteColor;
+    }
+    &.create-btn {
+      width: 100%;
+      border: 2px solid $greenColor;
+      color: $greenColor;
+      margin-bottom: 10px;
+      &:hover {
+        background: $greenColor;
+        color: $whiteColor;
+      }
+    }
+    &.delete-btn {
+      border: 2px solid $redColor;
+      color: $redColor;
+      &:hover {
+        background: $redColor;
+        color: $whiteColor;
+      }
+    }
+    &.close-btn {
+      margin-right: 20px;
+    }
+    &.add-btn {
+      border: 2px solid $greenColor;
+      color: $greenColor;
+      &:hover {
+        background: $greenColor;
+        color: $whiteColor;
+      }
+    }
+  }
+}
+
+.form-create {
+  &__input {
+    width: 100%;
+    padding: 10px 15px;
+    border: 1px solid #f1f1f1;
+    border-radius: 20px;
+    transition: $standartTrans;
+    &:focus {
+      box-shadow: 0 0 0 2px rgba($blueColor, 40%);
+    }
+    &.spec-input {
+      margin-bottom: 0;
+      margin-right: 10px;
+      &:nth-child(1) {
+        width: 140px;
+      }
+      &:nth-child(2) {
+        width: 220px;
+      }
+    }
+  }
+  &__row {
+    &:not(:last-child) {
+      margin-bottom: 10px;
+    }
+  }
+}
